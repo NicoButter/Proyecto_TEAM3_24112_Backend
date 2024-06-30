@@ -1,4 +1,4 @@
-package com.proyecto_TEAM3_24112_Backend;
+package com.proyecto_TEAM3_24112_Backend.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
