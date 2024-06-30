@@ -3,13 +3,13 @@ package com.proyecto_TEAM3_24112_Backend.model;
 public class Usuario {
     private int id;
     private String nombreUsuario;
-    private String contrasena;
+    private String password;
     private String rol;
 
 
-    public Usuario(String nombreUsuario, String contrasena, String rol) {
+    public Usuario(String nombreUsuario, String password, String rol) {
         this.nombreUsuario = nombreUsuario;
-        this.contrasena = contrasena;
+        this.password = password;
         this.rol = rol;
     }
 
@@ -26,11 +26,11 @@ public class Usuario {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-    public String getContrasena() {
+    public String getPassword() {
         return contrasena;
     }
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String password) {
+        this.contrasena = password;
     }
     public String getRol() {
         return rol;
