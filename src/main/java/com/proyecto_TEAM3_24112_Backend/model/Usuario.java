@@ -6,7 +6,6 @@ public class Usuario {
     private String password;
     private String rol;
 
-
     public Usuario(String nombreUsuario, String password, String rol) {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
@@ -27,10 +26,10 @@ public class Usuario {
         this.nombreUsuario = nombreUsuario;
     }
     public String getPassword() {
-        return contrasena;
+        return password;
     }
     public void setPassword(String password) {
-        this.contrasena = password;
+        this.password = password;
     }
     public String getRol() {
         return rol;
