@@ -1,21 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <!-- Versión del modelo POM utilizado -->
     <modelVersion>4.0.0</modelVersion>
-
     <!-- Coordenadas del proyecto -->
     <groupId>com.team3</groupId>
     <artifactId>proyecto_TEAM3_24112_Backend</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <!-- Tipo de empaquetado del proyecto (jar para aplicación standalone) -->
     <packaging>war</packaging>
-
     <!-- Nombre del proyecto -->
     <name>proyecto_TEAM3_24112_Backend</name>
-
     <!-- Propiedades del proyecto -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -25,27 +20,48 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <javaee.version>8.0</javaee.version>
     </properties>
-
     <!-- Dependencias del proyecto -->
     <dependencies>
-        <!-- Dependencia para MySQL Connector -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${javaee.version}</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
+        <!-- Dependencia para MySQL Connector -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>9.1.0</version>
+            <!-- Use the latest stable version -->
+            <scope>provided</scope>
+        </dependency>
         <!-- Driver MySQL para conexión a base de datos -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.4.0</version>
         </dependency>
-
+        <!-- Jackson Databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.14.2</version>
+            <!-- Use the latest stable version -->
+        </dependency>
+        <!-- Jackson Annotations -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.13.4</version>
+        </dependency>
+        <!-- Jackson Core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.13.4</version>
+        </dependency>
     </dependencies>
-
-
     <!-- Configuración de construcción del proyecto -->
     <build>
         <plugins>
@@ -59,7 +75,6 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-
             <!-- Plugin para empaquetar la aplicación como WAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -67,9 +82,7 @@
                 <version>3.3.1</version>
             </plugin>
         </plugins>
-
         <!-- Nombre final del archivo WAR generado -->
         <finalName>proyecto_TEAM3_24112_Backend</finalName>
     </build>
-
 </project>

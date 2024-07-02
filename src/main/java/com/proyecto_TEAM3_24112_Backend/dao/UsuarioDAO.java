@@ -55,7 +55,28 @@ public class UsuarioDAO {
         }
         return usuarios;
     }
-  
+
+    public Usuario obtenerUsuarioPorId(int id) {
+        Usuario usuario = null;
+        try {
+            String query = "SELECT * FROM usuario WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario = new Usuario(
+                        rs.getString("nombre_usuario"),
+                        rs.getString("contrasena"),
+                        rs.getString("rol")
+                );
+                usuario.setId(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuario;
+    }
+
     public Usuario obtenerUsuarioPorUsername(String username) {
         Usuario usuario = null;
         try {
@@ -75,6 +96,39 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
         return usuario;
+    }
+
+    public boolean modificarUsuario(Usuario usuario) {
+        boolean actualizado = false;
+        try {
+            String query = "UPDATE usuario SET nombre_usuario=?, contrasena=?, rol=? WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, usuario.getNombreUsuario());
+            ps.setString(2, usuario.getPassword());
+            ps.setString(3, usuario.getRol());
+            ps.setInt(4, usuario.getId());
+
+            int filasActualizadas = ps.executeUpdate();
+            actualizado = filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return actualizado;
+    }
+
+    public boolean eliminarUsuario(int id) {
+        boolean eliminado = false;
+        try {
+            String query = "DELETE FROM usuario WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+
+            int filasEliminadas = ps.executeUpdate();
+            eliminado = filasEliminadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return eliminado;
     }
 
 }
