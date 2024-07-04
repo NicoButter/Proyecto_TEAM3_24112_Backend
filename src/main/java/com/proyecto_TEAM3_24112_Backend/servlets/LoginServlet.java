@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         if (authDao.validarCredenciales(username, password)) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
-            response.sendRedirect("/dashboard"); // Redirigir al dashboard o página segura
+            response.sendRedirect("/dashboard"); 
         } else {
             response.sendRedirect("/login.html?error=true"); // Redirigir al login con error
         }

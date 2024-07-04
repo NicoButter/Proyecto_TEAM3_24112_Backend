@@ -1,4 +1,14 @@
-com/proyecto_TEAM3_24112_Backend/servlets/LoginServlet.class
-com/proyecto_TEAM3_24112_Backend/util/DatabaseConnection.class
+model/Usuario.class
+servlets/GestionUsuariosServlet.class
+util/DatabaseConnection.class
+com/proyecto_TEAM3_24112_Backend/servlets/GestionUsuariosServlet.class
+dao/AuthDao.class
 com/proyecto_TEAM3_24112_Backend/model/Usuario.class
+com/proyecto_TEAM3_24112_Backend/util/DatabaseConnection.class
+com/proyecto_TEAM3_24112_Backend/dao/AuthDao.class
+com/proyecto_TEAM3_24112_Backend/servlets/LoginServlet.class
+servlets/RegistroServlet.class
+servlets/LoginServlet.class
+dao/UsuarioDao.class
+com/proyecto_TEAM3_24112_Backend/servlets/RegistroServlet.class
 com/proyecto_TEAM3_24112_Backend/dao/UsuarioDAO.class

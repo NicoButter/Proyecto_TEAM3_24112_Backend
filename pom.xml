@@ -1,18 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- Versión del modelo POM utilizado -->
-    <modelVersion>4.0.0</modelVersion>
-    <!-- Coordenadas del proyecto -->
-    <groupId>com.team3</groupId>
-    <artifactId>proyecto_TEAM3_24112_Backend</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <!-- Tipo de empaquetado del proyecto (jar para aplicación standalone) -->
-    <packaging>war</packaging>
-    <!-- Nombre del proyecto -->
-    <name>proyecto_TEAM3_24112_Backend</name>
-    <!-- Propiedades del proyecto -->
-    <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.proyecto_TEAM3_24112_Backend</groupId>
+  <artifactId>proyecto_TEAM3_24112_Backend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>com.proyecto_TEAM3_24112_Backend</name>
+  
+  <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

@@ -35,11 +35,15 @@ public class AuthDao {
         boolean validado = false;
         String query = "SELECT * FROM usuarios WHERE username=? AND password=?";
         try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            validado = rs.next(); 
+            if (connection != null) {
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+                validado = rs.next();
+            } else {
+                System.out.println("La conexión es nula. No se puede validar las credenciales.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
