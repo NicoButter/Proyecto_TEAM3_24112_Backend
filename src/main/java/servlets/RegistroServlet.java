@@ -17,15 +17,14 @@ import model.Usuario;
 @WebServlet("/registro")
 public class RegistroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-       
+        // Obtener parámetros de la solicitud
         String nombreUsuario = request.getParameter("nombreUsuario");
         String contrasena = request.getParameter("contrasena");
         String rol = request.getParameter("rol");
         String email = request.getParameter("email");
         String fechaNacimiento = request.getParameter("fechaNacimiento");
 
-        
+        // Crear objeto Usuario y establecer sus valores
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setContrasena(contrasena);

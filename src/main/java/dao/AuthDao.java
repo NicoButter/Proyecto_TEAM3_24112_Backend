@@ -32,23 +32,25 @@ public class AuthDao {
         }
     }
 
-    public boolean validarCredenciales(String username, String password) {
-        boolean isValid = false;
+    public String validarCredenciales(String username, String password) {
+        String rol = null;
 
-        String sql = "SELECT * FROM usuario WHERE nombre_usuario = ? AND contrasena = ?";
+        String sql = "SELECT rol FROM usuario WHERE nombre_usuario = ? AND contrasena = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, password);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                isValid = resultSet.next();
+                if (resultSet.next()) {
+                    rol = resultSet.getString("rol");
+                }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return isValid;
+        return rol;
     }
 }
