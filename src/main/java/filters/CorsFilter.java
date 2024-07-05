@@ -13,9 +13,6 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
 @WebFilter(filterName = "CorsFilter", urlPatterns = {"/*"},
 initParams = {
         @WebInitParam(name = "allowedOrigins", value = "http://127.0.0.1:5500"),
