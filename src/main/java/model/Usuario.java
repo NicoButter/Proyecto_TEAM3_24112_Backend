@@ -10,10 +10,10 @@ public class Usuario {
     private String email;
     private Date fechaNacimiento;
 
-    // Constructor vacío
+    // Constructor_vacío
     public Usuario() {}
 
-    // Constructor completo
+    // Constructor_completo
     public Usuario(String nombreUsuario, String contrasena, String rol, String email, Date fechaNacimiento) {
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;

@@ -20,8 +20,8 @@ public class GestionProductosServlet extends HttpServlet {
     private ObjectMapper objectMapper;
 
     public GestionProductosServlet() {
-        this.productoDao = new ProductoDao(); 
-        this.objectMapper = new ObjectMapper(); 
+        this.productoDao = new ProductoDao(); // Inicialización del DAO de Producto
+        this.objectMapper = new ObjectMapper(); // ObjectMapper para convertir objetos a JSON y viceversa
     }
 
     @Override

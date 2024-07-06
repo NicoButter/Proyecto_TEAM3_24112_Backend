@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -40,16 +41,23 @@ public class GestionUsuariosServlet extends HttpServlet {
         }
     }
 
-    @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
         Usuario usuario = objectMapper.readValue(request.getReader(), Usuario.class);
+        System.out.println("Datos del usuario recibido para actualizar: " + usuario);
+
         boolean exito = usuarioDao.actualizarUsuario(usuario);
-        
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"exito\": " + exito + "}");
+
+        PrintWriter out = response.getWriter();
+        out.write("{\"exito\": " + exito + "}");
+        out.flush();
     }
 
+    
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));

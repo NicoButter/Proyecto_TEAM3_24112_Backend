@@ -10,10 +10,9 @@ import java.util.List;
 import model.Usuario;
 import util.DatabaseConnection;
 
-
 public class UsuarioDao {
     
-	private final Connection connection;
+    private final Connection connection;
 
     public UsuarioDao() {
         Connection conn = null;
@@ -88,8 +87,9 @@ public class UsuarioDao {
             ps.setString(4, usuario.getEmail());
             ps.setDate(5, usuario.getFechaNacimiento());
             ps.setInt(6, usuario.getId());
-    
+        
             int filasActualizadas = ps.executeUpdate();
+            System.out.println("Filas actualizadas: " + filasActualizadas);
             actualizado = filasActualizadas > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,4 +135,3 @@ public class UsuarioDao {
         return usuarios;
     }
 }
-
