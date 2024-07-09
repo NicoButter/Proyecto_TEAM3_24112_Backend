@@ -1,6 +1,6 @@
 # Backend Java - Proyecto Tienda de Bebidas Online - Wine Shop
 
-¡Bienvenido al repositorio del backend de la Tienda de Bebidas Online del Grupo 3 para Codo a Codo Fullstack Java 2024!
+¡Bienvenido al repositorio del backend de la Tienda de Bebidas Online del Grupo 3 de la comisión 24.112 para Codo a Codo Fullstack Java 2024!
 
 ## Descripción
 
