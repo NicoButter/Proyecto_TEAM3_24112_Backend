@@ -27,6 +27,9 @@ El backend del proyecto está desarrollado utilizando las siguientes tecnología
 - Maven
 - MySQL
 - Eclipse
+- Git
+- Github
+- Github Desktop
 - OpenSUSE Linux
 
 ## Instrucciones de Uso
