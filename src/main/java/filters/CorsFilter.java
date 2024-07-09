@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+// Compañeros esto es importante!!!! 
 
 
 @WebFilter(filterName = "CorsFilter", urlPatterns = {"/*"},

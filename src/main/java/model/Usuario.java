@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Usuario {
     private int id;
@@ -9,12 +9,11 @@ public class Usuario {
     private String rol;
     private String email;
     private Date fechaNacimiento;
+    
+    public Usuario() {};
 
-    // Constructor_vacío
-    public Usuario() {}
-
-    // Constructor_completo
-    public Usuario(String nombreUsuario, String contrasena, String rol, String email, Date fechaNacimiento) {
+    public Usuario(int id, String nombreUsuario, String contrasena, String rol, String email, Date fechaNacimiento) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
         this.rol = rol;
@@ -22,7 +21,7 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    // Getters y Setters
+	// Getters y Setters
     public int getId() {
         return id;
     }

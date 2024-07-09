@@ -5,133 +5,122 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Usuario;
 import util.DatabaseConnection;
 
 public class UsuarioDao {
-    
-    private final Connection connection;
+    private Connection connection;
 
-    public UsuarioDao() {
-        Connection conn = null;
-        try {
-            conn = DatabaseConnection.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        this.connection = conn;
+    public UsuarioDao() throws SQLException {
+        connection = DatabaseConnection.getConnection();
     }
 
-    public void cerrarConexion() {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    // Método para insertar un nuevo usuario
     public boolean insertarUsuario(Usuario usuario) {
-        boolean insertado = false;
         try {
-            String query = "INSERT INTO usuario (nombre_usuario, contrasena, rol, email, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, usuario.getNombreUsuario());
-            ps.setString(2, usuario.getContrasena());
-            ps.setString(3, usuario.getRol());
-            ps.setString(4, usuario.getEmail());
-            ps.setDate(5, usuario.getFechaNacimiento());
-
-            int filasInsertadas = ps.executeUpdate();
-            insertado = filasInsertadas > 0;
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "INSERT INTO usuario(nombre_usuario, contrasena, rol, email, fecha_nacimiento) VALUES (?, ?, ?, ?, ?)"
+            );
+            preparedStatement.setString(1, usuario.getNombreUsuario());
+            preparedStatement.setString(2, usuario.getContrasena());
+            preparedStatement.setString(3, usuario.getRol());
+            preparedStatement.setString(4, usuario.getEmail());
+            preparedStatement.setDate(5, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            
+            int rowsInserted = preparedStatement.executeUpdate();
+            return rowsInserted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return insertado;
     }
 
-    public Usuario obtenerUsuarioPorId(int id) {
-        Usuario usuario = null;
-        try {
-            String query = "SELECT * FROM usuario WHERE id = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                usuario = new Usuario(
-                        rs.getString("nombre_usuario"),
-                        rs.getString("contrasena"),
-                        rs.getString("rol"),
-                        rs.getString("email"),
-                        rs.getDate("fecha_nacimiento")
-                );
-                usuario.setId(rs.getInt("id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return usuario;
-    }
-
+    // Método para actualizar un usuario existente
     public boolean actualizarUsuario(Usuario usuario) {
-        boolean actualizado = false;
         try {
-            String query = "UPDATE usuario SET nombre_usuario=?, contrasena=?, rol=?, email=?, fecha_nacimiento=? WHERE id=?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, usuario.getNombreUsuario());
-            ps.setString(2, usuario.getContrasena());
-            ps.setString(3, usuario.getRol());
-            ps.setString(4, usuario.getEmail());
-            ps.setDate(5, usuario.getFechaNacimiento());
-            ps.setInt(6, usuario.getId());
-        
-            int filasActualizadas = ps.executeUpdate();
-            System.out.println("Filas actualizadas: " + filasActualizadas);
-            actualizado = filasActualizadas > 0;
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE usuario SET nombre_usuario=?, email=?, fecha_nacimiento=? WHERE id=?"
+            );
+            preparedStatement.setString(1, usuario.getNombreUsuario());
+            preparedStatement.setString(2, usuario.getEmail());
+            preparedStatement.setDate(3, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            preparedStatement.setInt(4, usuario.getId());
+            
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return actualizado;
     }
 
+    // Método para eliminar un usuario por su ID
     public boolean eliminarUsuario(int id) {
-        boolean eliminado = false;
         try {
-            String query = "DELETE FROM usuario WHERE id=?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id);
-
-            int filasEliminadas = ps.executeUpdate();
-            eliminado = filasEliminadas > 0;
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "DELETE FROM usuario WHERE id=?"
+            );
+            preparedStatement.setInt(1, id);
+            
+            int rowsDeleted = preparedStatement.executeUpdate();
+            return rowsDeleted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return eliminado;
     }
 
+    // Método para obtener todos los usuarios
     public List<Usuario> obtenerTodosUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         try {
-            String query = "SELECT * FROM usuario";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT * FROM usuario"
+            );
+            ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
-                Usuario usuario = new Usuario(
-                        rs.getString("nombre_usuario"),
-                        rs.getString("contrasena"),
-                        rs.getString("rol"),
-                        rs.getString("email"),
-                        rs.getDate("fecha_nacimiento")
-                );
-                usuario.setId(rs.getInt("id"));
+                int id = rs.getInt("id");
+                String nombreUsuario = rs.getString("nombre_usuario");
+                String contrasena = rs.getString("contrasena");
+                String rol = rs.getString("rol");
+                String email = rs.getString("email");
+                Date fechaNacimiento = rs.getDate("fecha_nacimiento");
+                
+                Usuario usuario = new Usuario(id, nombreUsuario, contrasena, rol, email, fechaNacimiento);
                 usuarios.add(usuario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return usuarios;
+    }
+
+    // Método para obtener un usuario por su ID
+    public Usuario obtenerUsuarioPorId(int id) {
+        Usuario usuario = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT * FROM usuario WHERE id=?"
+            );
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                String nombreUsuario = rs.getString("nombre_usuario");
+                String contrasena = rs.getString("contrasena");
+                String rol = rs.getString("rol");
+                String email = rs.getString("email");
+                Date fechaNacimiento = rs.getDate("fecha_nacimiento");
+
+                usuario = new Usuario(id, nombreUsuario, contrasena, rol, email, fechaNacimiento);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuario;
     }
 }

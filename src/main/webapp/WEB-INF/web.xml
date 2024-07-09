@@ -1,0 +1,16 @@
+ 
+ <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+          version="3.1">
+
+     <display-name>proyecto_TEAM3_24112_Backend</display-name>
+
+     <!-- Configuración para servir archivos estáticos -->
+     <servlet-mapping>
+         <servlet-name>default</servlet-name>
+         <url-pattern>/imagenes/*</url-pattern>
+     </servlet-mapping>
+
+ </web-app>

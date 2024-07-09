@@ -37,11 +37,13 @@ public class ProductoDao {
     public boolean crear(Producto producto) {
         boolean insertado = false;
         try {
-            String query = "INSERT INTO producto (nombre, tipo, precio) VALUES (?, ?, ?)";
+            String query = "INSERT INTO producto (nombre, tipo, descripcion, precio, imagen_nombre) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getTipo());
-            ps.setDouble(3, producto.getPrecio());
+            ps.setString(3, producto.getDescripcion());
+            ps.setDouble(4, producto.getPrecio());
+            ps.setString(5, producto.getImagenNombre());
 
             int filasInsertadas = ps.executeUpdate();
             insertado = filasInsertadas > 0;
@@ -62,10 +64,11 @@ public class ProductoDao {
                 int productId = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String tipo = rs.getString("tipo");
-                byte[] imagen = rs.getBytes("imagen"); // Ajustar según el tipo de dato de tu base de datos
+                String descripcion = rs.getString("descripcion");
                 double precio = rs.getDouble("precio");
+                String imagenNombre = rs.getString("imagen_nombre");
 
-                producto = new Producto(productId, nombre, tipo, imagen, precio);
+                producto = new Producto(productId, nombre, tipo, descripcion, imagenNombre, precio);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,13 +79,14 @@ public class ProductoDao {
     public boolean actualizar(Producto producto) {
         boolean actualizado = false;
         try {
-            String query = "UPDATE producto SET nombre=?, tipo=?, imagen=?, precio=? WHERE id=?";
+            String query = "UPDATE producto SET nombre=?, tipo=?, descripcion=?, precio=?, imagen_nombre=? WHERE id=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getTipo());
-            ps.setBytes(3, producto.getImagen()); // Ajustar según el tipo de dato de tu base de datos para la imagen
+            ps.setString(3, producto.getDescripcion());
             ps.setDouble(4, producto.getPrecio());
-            ps.setInt(5, producto.getId());
+            ps.setString(5, producto.getImagenNombre());
+            ps.setInt(6, producto.getId());
 
             int filasActualizadas = ps.executeUpdate();
             actualizado = filasActualizadas > 0;
@@ -117,16 +121,37 @@ public class ProductoDao {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String tipo = rs.getString("tipo");
-                byte[] imagen = rs.getBytes("imagen"); // Ajusta según el tipo de dato de tu base de datos
+                String descripcion = rs.getString("descripcion");
                 double precio = rs.getDouble("precio");
+                String imagenNombre = rs.getString("imagen_nombre");
 
-                Producto producto = new Producto(id, nombre, tipo, imagen, precio);
+                Producto producto = new Producto(id, nombre, tipo, descripcion, imagenNombre, precio);
                 productos.add(producto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return productos;
+    }
+
+    public boolean actualizarConImagen(Producto producto, String imagenNombre) {
+        boolean actualizado = false;
+        try {
+            String query = "UPDATE producto SET nombre=?, tipo=?, descripcion=?, precio=?, imagen_nombre=? WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getTipo());
+            ps.setString(3, producto.getDescripcion());
+            ps.setDouble(4, producto.getPrecio());
+            ps.setString(5, imagenNombre != null ? imagenNombre : producto.getImagenNombre());
+            ps.setInt(6, producto.getId());
+
+            int filasActualizadas = ps.executeUpdate();
+            actualizado = filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return actualizado;
     }
 
 }

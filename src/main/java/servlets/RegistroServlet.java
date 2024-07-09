@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +34,13 @@ public class RegistroServlet extends HttpServlet {
         usuario.setFechaNacimiento(Date.valueOf(fechaNacimiento));
 
         // Usar UsuarioDAO para insertar el nuevo usuario en la base de datos
-        UsuarioDao usuarioDao = new UsuarioDao();
+        UsuarioDao usuarioDao = null;
+		try {
+			usuarioDao = new UsuarioDao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         boolean registroExitoso = usuarioDao.insertarUsuario(usuario);
 
         // Redirigir al usuario según el resultado de la operación

@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +17,11 @@ import model.Usuario;
 
 @WebServlet("/gestionUsuarios")
 public class GestionUsuariosServlet extends HttpServlet {
-
+    private static final long serialVersionUID = 1L;
     private UsuarioDao usuarioDao;
     private ObjectMapper objectMapper;
 
-    public GestionUsuariosServlet() {
+    public GestionUsuariosServlet() throws SQLException {
         this.usuarioDao = new UsuarioDao();
         this.objectMapper = new ObjectMapper();
     }
@@ -41,9 +42,23 @@ public class GestionUsuariosServlet extends HttpServlet {
         }
     }
 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Usuario nuevoUsuario = objectMapper.readValue(request.getReader(), Usuario.class);
+        System.out.println("Datos del nuevo usuario recibido para agregar: " + nuevoUsuario);
 
+        boolean exito = usuarioDao.insertarUsuario(nuevoUsuario);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter out = response.getWriter();
+        out.write("{\"exito\": " + exito + "}");
+        out.flush();
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario usuario = objectMapper.readValue(request.getReader(), Usuario.class);
         System.out.println("Datos del usuario recibido para actualizar: " + usuario);
 
@@ -57,15 +72,13 @@ public class GestionUsuariosServlet extends HttpServlet {
         out.flush();
     }
 
-    
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean exito = usuarioDao.eliminarUsuario(id);
-        
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write("{\"exito\": " + exito + "}");
     }
 }
-

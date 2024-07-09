@@ -4,16 +4,34 @@ public class Producto {
     private int id;
     private String nombre;
     private String tipo;
-    private byte[] imagen;
-    private double precio;
+    private String descripcion;
+    private String imagenNombre;
+   	private double precio;
 
-    public Producto(int id, String nombre, String tipo, byte[] imagen, double precio) {
+   	public Producto(int id, String nombre, String tipo, String descripcion, String imagenNombre, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
-        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.imagenNombre = imagenNombre;
         this.precio = precio;
     }
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getImagenNombre() {
+		return imagenNombre;
+	}
+
+	public void setImagenNombre(String imagenNombre) {
+		this.imagenNombre = imagenNombre;
+	}
 
 	public int getId() {
 		return id;
@@ -39,14 +57,6 @@ public class Producto {
 		this.tipo = tipo;
 	}
 
-	public byte[] getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
-
 	public double getPrecio() {
 		return precio;
 	}
@@ -54,6 +64,6 @@ public class Producto {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
 
-    
 }

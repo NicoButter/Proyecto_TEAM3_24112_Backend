@@ -76,6 +76,8 @@
                 <version>3.3.1</version>
             </plugin>
         </plugins>
+        
+        
         <!-- Nombre final del archivo WAR generado -->
         <finalName>proyecto_TEAM3_24112_Backend</finalName>
     </build>
