@@ -31,6 +31,7 @@ El backend del proyecto está desarrollado utilizando las siguientes tecnología
 - Github
 - Github Desktop
 - OpenSUSE Linux
+- Adobe FireFly
 
 ## Instrucciones de Uso
 
