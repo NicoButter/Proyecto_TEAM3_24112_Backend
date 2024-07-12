@@ -35,5 +35,4 @@ public class ProductoOfertaDao {
         return productosOfertas;
     }
 
-    // Otros métodos CRUD (crear, actualizar, eliminar) pueden agregarse aquí
 }

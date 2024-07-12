@@ -1,6 +1,7 @@
 package filters;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -33,12 +34,12 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Configuración inicial del filtro (opcional)
+        
     }
 
     @Override
     public void destroy() {
-        // Limpieza del filtro (opcional)
+        
     }
 }
 

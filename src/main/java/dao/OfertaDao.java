@@ -29,7 +29,7 @@ public class OfertaDao {
                 oferta.setTipoDescuento(rs.getString("tipo_descuento"));
                 oferta.setValorDescuento(rs.getBigDecimal("valor_descuento"));
                 
-                // Asegúrate de decodificar el nombre de la oferta si está codificado en la base de datos
+
                 String nombreOfertaDecodificado = URLDecoder.decode(oferta.getNombre(), StandardCharsets.UTF_8);
                 oferta.setNombre(nombreOfertaDecodificado);
                 
@@ -41,5 +41,4 @@ public class OfertaDao {
         return ofertas;
     }
 
-    // Otros métodos CRUD (crear, actualizar, eliminar) pueden agregarse aquí
 }
