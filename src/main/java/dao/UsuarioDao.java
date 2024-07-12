@@ -18,7 +18,6 @@ public class UsuarioDao {
         connection = DatabaseConnection.getConnection();
     }
 
-    // Método para insertar un nuevo usuario
     public boolean insertarUsuario(Usuario usuario) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -31,13 +30,15 @@ public class UsuarioDao {
             preparedStatement.setDate(5, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
             
             int rowsInserted = preparedStatement.executeUpdate();
+            System.out.println("Rows inserted: " + rowsInserted);
             return rowsInserted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error SQL al intentar insertar un nuevo usuario: " + e.getMessage());
             return false;
         }
     }
-
+    
     // Método para actualizar un usuario existente
     public boolean actualizarUsuario(Usuario usuario) {
         try {

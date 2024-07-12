@@ -153,5 +153,31 @@ public class ProductoDao {
         }
         return actualizado;
     }
+    
+    public static List<Producto> obtenerProductosPorTipo(String tipoBebida) {
+        List<Producto> productos = new ArrayList<>();
+        String query = "SELECT * FROM producto WHERE tipo_bebida_id = (SELECT id FROM tipo_bebida WHERE nombre = ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, tipoBebida);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setId(rs.getInt("id"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setTipo(rs.getString("tipo"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setImagenNombre(rs.getString("imagen_nombre"));
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productos;
+    }
 
 }

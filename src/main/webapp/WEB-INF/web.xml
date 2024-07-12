@@ -13,4 +13,4 @@
          <url-pattern>/imagenes/*</url-pattern>
      </servlet-mapping>
 
- </web-app>
+</web-app>
